@@ -60,7 +60,8 @@ namespace QuickGenerator.QuickSettings
             Int32 eolMode = (Int32)Globals.Settings.EOLMode;
             String lineBreak = PluginCore.Utilities.LineEndDetector.GetNewLineMarker(eolMode);
             string author = "";
-            List<Argument> arguments = Globals.Settings.CustomArguments;
+           // List<Argument> arguments = Globals.Settings.CustomArguments;
+            List<Argument> arguments = Globals.MainForm.CustomArguments;
 
             foreach (Argument item in arguments)
             {
@@ -295,7 +296,7 @@ namespace QuickGenerator.QuickSettings
                     {
 
                         ASCompletion.Completion.ASGenerator.SetJobContext(null, cname, null, null);
-                        ASCompletion.Completion.ASGenerator.GenerateJob(ASCompletion.Completion.GeneratorJobType.ImplementInterface, null, cm, null);
+                        ASCompletion.Completion.ASGenerator.GenerateJob(ASCompletion.Completion.GeneratorJobType.ImplementInterface, null, cm, null, null);
                     }
                 }
 

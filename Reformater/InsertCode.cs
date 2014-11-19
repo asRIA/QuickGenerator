@@ -68,7 +68,7 @@ namespace QuickGenerator.Reformatter
              Dictionary<string, string> newInsert;
 
              int numberLines = countListWord / countParam;
-             string nl = ASCompletion.Completion.ASComplete.GetNewLineMarker(ASCompletion.Context.ASContext.CurSciControl.EOLMode);
+             string nl = PluginCore.Utilities.LineEndDetector.GetNewLineMarker(ASCompletion.Context.ASContext.CurSciControl.EOLMode);
              StringBuilder sbNewString = new StringBuilder((originalText.Length + (textLength * countParam)) * numberLines);
 
             

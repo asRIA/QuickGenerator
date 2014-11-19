@@ -102,7 +102,8 @@ namespace QuickGenerator
         private String pluginGuid = "21D1087C-998D-4466-A25C-8E6EA42F6F32";
         private String pluginHelp = "http://www.youtube.com/user/Alan271078";
         private String pluginDesc = "Add functionality for create code quickly";
-        private String pluginAuth = "Alan Lucchese";
+        private String pluginAuth = "Alan Lucchese, update: trzeci";
+        private int pluginApi = 1;
         private String settingFilename;
         internal  Settings settingsQuickGenerator;
         internal static CustomCompletionScintillaControl custCompletion;
@@ -161,6 +162,13 @@ namespace QuickGenerator
             get { return this.pluginHelp; }
         }
 
+        /// <summary>
+        /// Web address for help
+        /// </summary> 
+        public int Api
+        {
+            get { return this.pluginApi; }
+        }
         /// <summary>
         /// Object that contains the settings
         /// </summary>
@@ -653,6 +661,7 @@ namespace QuickGenerator
 
    
         #endregion
+
 
     }
 

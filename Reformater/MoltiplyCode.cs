@@ -52,7 +52,7 @@ namespace QuickGenerator.Reformatter
 
 
 
-            string nl = ASCompletion.Completion.ASComplete.GetNewLineMarker(ASCompletion.Context.ASContext.CurSciControl.EOLMode);
+            string nl = PluginCore.Utilities.LineEndDetector.GetNewLineMarker(ASCompletion.Context.ASContext.CurSciControl.EOLMode);
             StringBuilder sb = new StringBuilder((OriginalText.Length + lengthString +nl.Length) * numberDuplicate);
 
            

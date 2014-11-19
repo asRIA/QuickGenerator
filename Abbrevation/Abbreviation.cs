@@ -473,7 +473,7 @@ namespace QuickGenerator.Abbreviation
             System.Text.StringBuilder sb = null;
 
             ScintillaControl sci = ASCompletion.Context.ASContext.CurSciControl;
-            string nl = ASCompletion.Completion.ASComplete.GetNewLineMarker(sci.EOLMode);
+            string nl = PluginCore.Utilities.LineEndDetector.GetNewLineMarker(sci.EOLMode);
             bool hasImport = false;
             bool hasAfterCurrentMember =false;
             bool hasEvent = false;
@@ -920,7 +920,7 @@ namespace QuickGenerator.Abbreviation
 
                if (name.Length == 0) continue;
                 ASGenerator.SetJobContext(contextTokens[i], name, null, m); 
-               ASGenerator.GenerateJob(GeneratorJobType.ComplexEvent, ASContext.Context.CurrentMember, ASContext.Context.CurrentClass, "Generate Event handler");
+               ASGenerator.GenerateJob(GeneratorJobType.ComplexEvent, ASContext.Context.CurrentMember, ASContext.Context.CurrentClass, "Generate Event handler", null);
             }
 
            

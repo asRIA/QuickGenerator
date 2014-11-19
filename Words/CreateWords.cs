@@ -241,7 +241,7 @@ namespace QuickGenerator.Words
             int CodePage = sci.CodePage;
 
 
-            string nl = ASCompletion.Completion.ASComplete.GetNewLineMarker(sci.EOLMode);        
+            string nl = PluginCore.Utilities.LineEndDetector.GetNewLineMarker(sci.EOLMode);        
             int curLine = sci.LineFromPosition(pos);
             int startLine = sci.PositionFromLine(curLine);
 
@@ -1259,7 +1259,7 @@ namespace QuickGenerator.Words
                 if (!reformater)
                 {
                     ASCompletion.Completion.ReformatOptions options = new ASCompletion.Completion.ReformatOptions();
-                    options.Newline = ASCompletion.Completion.ASComplete.GetNewLineMarker(sciMonitor.EOLMode);
+                    options.Newline = PluginCore.Utilities.LineEndDetector.GetNewLineMarker(sciMonitor.EOLMode);
                     options.CondenseWhitespace = ASContext.CommonSettings.CondenseWhitespace;
                     options.BraceAfterLine = ASContext.CommonSettings.ReformatBraces
                         && PluginCore.PluginBase.MainForm.Settings.CodingStyle == PluginCore.CodingStyle.BracesAfterLine;

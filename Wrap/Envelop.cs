@@ -61,7 +61,7 @@ namespace QuickGenerator.Abbreviation
 
             string[] lines = text.Split('\n');
 
-            string nl = ASCompletion.Completion.ASComplete.GetNewLineMarker(sci.EOLMode);
+            string nl = PluginCore.Utilities.LineEndDetector.GetNewLineMarker(sci.EOLMode);
             StringBuilder sbBody = new StringBuilder(text.Length);
             int indent = sci.GetLineIndentation(mm.LineFrom);
 
@@ -592,7 +592,7 @@ namespace QuickGenerator.Abbreviation
             int pos = sci.SelectionStart;
             int initLine = sci.LineFromPosition(pos);
             int indent = sci.GetLineIndentation(initLine);
-            string nl = ASComplete.GetNewLineMarker(sci.EOLMode);
+            string nl = PluginCore.Utilities.LineEndDetector.GetNewLineMarker(sci.EOLMode);
             StringBuilder sb = new StringBuilder(200);
             sb.Append("if()");
             sb.Append(nl);

@@ -44,7 +44,8 @@ namespace QuickGenerator.Reformatter
 
                     int curLine = sci.LineFromPosition(sci.CurrentPos);
                     string tabString = new string('\t', sci.GetLineIndentation(curLine) / sci.Indent);
-                    string nl = ";" + ASCompletion.Completion.ASComplete.GetNewLineMarker(sci.EOLMode) + tabString;
+                   // string nl = ";" + ASCompletion.Completion.ASComplete.GetNewLineMarker(sci.EOLMode) + tabString;
+                    string nl = ";" + PluginCore.Utilities.LineEndDetector.GetNewLineMarker(sci.EOLMode) + tabString;
                     strings[0] = strings[0].Replace(";", nl);
                 }
             }
