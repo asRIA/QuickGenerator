@@ -1,0 +1,4 @@
+QuickGenerator
+==============
+
+QuickGenerator for FlashDevelop
