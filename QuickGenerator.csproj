@@ -105,6 +105,7 @@
     <Compile Include="Managers\ManagerResources.cs" />
     <Compile Include="CustomCompletionList\CustomCompletionListTextBoxAbbreviation.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="QuickSettings\SettingsLoader.cs" />
     <Compile Include="UI\ClipBoardItem.cs" />
     <Compile Include="UI\form\UserControl1.cs">
       <SubType>UserControl</SubType>
