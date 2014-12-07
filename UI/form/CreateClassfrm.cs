@@ -345,7 +345,7 @@ namespace QuickGenerator.UI.form
 
             GetPackageName();
 
-            ProjectManager.Controls.TreeView.ProjectTreeView.Instance.RebuildTree(true);
+            ProjectManager.Controls.TreeView.ProjectTreeView.Instance.RebuildTree();
       
         }
 
@@ -411,7 +411,7 @@ namespace QuickGenerator.UI.form
 
             CreateFileClass();
 
-            ProjectManager.Controls.TreeView.ProjectTreeView.Instance.RebuildTree(true);
+            ProjectManager.Controls.TreeView.ProjectTreeView.Instance.RebuildTree();
            // PluginCore.Managers.EventManager.DispatchEvent(plugin, new NotifyEvent(EventType.FileNew));
 
 

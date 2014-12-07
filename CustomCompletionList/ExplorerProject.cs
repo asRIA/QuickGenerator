@@ -157,7 +157,7 @@ namespace QuickGenerator.CustomCompletionList
             {
                
                 known = context.GetAllProjectClasses();
-                known.Merge(ASContext.Context.GetVisibleExternalElements(true));
+                known.Merge(ASContext.Context.GetVisibleExternalElements());
             }
             finally  
             {

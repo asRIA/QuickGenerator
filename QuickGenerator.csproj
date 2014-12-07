@@ -62,8 +62,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\flashdevelop\FlashDevelop\Bin\Debug\Plugins\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -87,39 +89,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AS2Context, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>T:\APP\FD\Plugins\AS2Context.dll</HintPath>
-    </Reference>
-    <Reference Include="AS3Context, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>T:\APP\FD\Plugins\AS3Context.dll</HintPath>
-    </Reference>
-    <Reference Include="ASClassWizard, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>T:\APP\FD\Plugins\ASClassWizard.dll</HintPath>
-    </Reference>
-    <Reference Include="ASCompletion, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>T:\APP\FD\Plugins\ASCompletion.dll</HintPath>
-    </Reference>
-    <Reference Include="CodeFormatter, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>T:\APP\FD\Plugins\CodeFormatter.dll</HintPath>
-    </Reference>
-    <Reference Include="FlashDevelop, Version=4.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>T:\APP\FD\FlashDevelop.exe</HintPath>
-    </Reference>
-    <Reference Include="PluginCore, Version=2.0.0.39672, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>T:\APP\FD\PluginCore.dll</HintPath>
-    </Reference>
-    <Reference Include="ProjectManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>T:\APP\FD\Plugins\ProjectManager.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -315,5 +284,31 @@
     <EmbeddedResource Include="UI\form\frmListCompletition.resx">
       <DependentUpon>frmListCompletition.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\flashdevelop\External\Plugins\AS3Context\AS3Context.csproj">
+      <Project>{0263e5f6-d5b2-4118-b12e-87f9a74de8af}</Project>
+      <Name>AS3Context</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\flashdevelop\External\Plugins\ASClassWizard\ASClassWizard.csproj">
+      <Project>{a2c159c1-7d21-4483-aeb1-38d9fdc4c7f3}</Project>
+      <Name>ASClassWizard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\flashdevelop\External\Plugins\ASCompletion\ASCompletion.csproj">
+      <Project>{4ebf2653-9654-4e40-880e-0046b3d6210e}</Project>
+      <Name>ASCompletion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\flashdevelop\External\Plugins\ProjectManager\ProjectManager.csproj">
+      <Project>{78101c01-e186-4954-b1dd-debb7905fad8}</Project>
+      <Name>ProjectManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\flashdevelop\FlashDevelop\FlashDevelop.csproj">
+      <Project>{efd07485-9a64-4eec-94e7-acbd4da5ca93}</Project>
+      <Name>FlashDevelop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\flashdevelop\PluginCore\PluginCore.csproj">
+      <Project>{61885f70-b4dc-4b44-852d-5d6d03f2a734}</Project>
+      <Name>PluginCore</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
