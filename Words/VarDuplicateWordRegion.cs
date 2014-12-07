@@ -3,81 +3,81 @@
 
 namespace QuickGenerator.Words
 {
-    class VarDuplicateWordRegion : WordRegion ,IDisposable
-    {
+	class VarDuplicateWordRegion : WordRegion, IDisposable
+	{
 
-        public VarWordRegion rootWord;
-        public VarDuplicateWordRegion NextVarDuplicate;
-
-
-        public override void addCharactersNextWord(int length)
-        {
-
-            int newEndWord = length + rootWord.newLength;
-            startWord += length;
-            endWord += newEndWord;
+		public VarWordRegion rootWord;
+		public VarDuplicateWordRegion NextVarDuplicate;
 
 
-            NextWord.addCharactersNextWord(newEndWord);
-            
-        }
+		public override void addCharactersNextWord(int length)
+		{
+
+			int newEndWord = length + rootWord.newLength;
+			startWord += length;
+			endWord += newEndWord;
 
 
-        public override void removeCharactersNextWord(int length)
-        {
- 
+			NextWord.addCharactersNextWord(newEndWord);
 
-            int newEndWord = length + rootWord.newLength;
-            startWord -= length;
-            endWord -= newEndWord;
+		}
 
 
-            NextWord.removeCharactersNextWord(newEndWord);
-
-        }
-
-
-        public override WordRegionBase getLastWord()
-        {
-            LastWordVarDuplicate wr = new LastWordVarDuplicate();
-
-            wr.startWord = startWord;
-            wr.endWord = endWord;
-            wr.type = type;
-            
-            return wr;
-        }
-
-        public override void addCharactersToRegion(int length)
-        {
-            rootWord.VarNotify = this;
-            rootWord.addCharactersToRegion(length);
-
-        }
-
-        public override void removeCharactersFromRegion(int length)
-        {
-            rootWord.VarNotify = this;
-            rootWord.removeCharactersFromRegion(length);
-
-        }
-
-        public override void Disable()
-        {
-            rootWord.NextVarDuplicate = null;
-        }
+		public override void removeCharactersNextWord(int length)
+		{
 
 
-        #region IDisposable Membri di
+			int newEndWord = length + rootWord.newLength;
+			startWord -= length;
+			endWord -= newEndWord;
 
-        void IDisposable.Dispose()
-        {
-            NextWord = null;
-            rootWord = null;
-        }
 
-        #endregion
+			NextWord.removeCharactersNextWord(newEndWord);
 
-        
-    }
+		}
+
+
+		public override WordRegionBase getLastWord()
+		{
+			LastWordVarDuplicate wr = new LastWordVarDuplicate();
+
+			wr.startWord = startWord;
+			wr.endWord = endWord;
+			wr.type = type;
+
+			return wr;
+		}
+
+		public override void addCharactersToRegion(int length)
+		{
+			rootWord.VarNotify = this;
+			rootWord.addCharactersToRegion(length);
+
+		}
+
+		public override void removeCharactersFromRegion(int length)
+		{
+			rootWord.VarNotify = this;
+			rootWord.removeCharactersFromRegion(length);
+
+		}
+
+		public override void Disable()
+		{
+			rootWord.NextVarDuplicate = null;
+		}
+
+
+		#region IDisposable Membri di
+
+		void IDisposable.Dispose()
+		{
+			NextWord = null;
+			rootWord = null;
+		}
+
+		#endregion
+
+
+	}
 }

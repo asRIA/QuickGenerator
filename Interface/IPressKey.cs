@@ -2,8 +2,8 @@
 
 namespace QuickGenerator
 {
-    public interface IPressKey
-    {
-         void EventKey(KeyEvent keyEvent);
-    }
+	public interface IPressKey
+	{
+		void EventKey(KeyEvent keyEvent);
+	}
 }

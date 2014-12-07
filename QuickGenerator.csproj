@@ -82,7 +82,6 @@
   -->
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="bin\Release\Project1.dll.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -241,10 +240,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Release\PluginCore.dll" />
-    <Content Include="bin\Release\PluginCore.pdb" />
-    <Content Include="bin\Release\Project1.dll" />
-    <Content Include="bin\Release\Project1.pdb" />
     <EmbeddedResource Include="Resources\goto_arrow.png" />
     <EmbeddedResource Include="Resources\Character-Map-icon.png" />
     <EmbeddedResource Include="Resources\clipboard-icon.png" />

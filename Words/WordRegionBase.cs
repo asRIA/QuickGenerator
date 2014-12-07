@@ -33,65 +33,65 @@ using System;
 
 namespace QuickGenerator.Words
 {
-    abstract public class WordRegionBase : IDisposable
-    {
-        public  int startWord;
-        public  int endWord;
-        public WordRegionBase NextWord;
-        
-
-        public abstract void addCharactersNextWord(int length);
-        public abstract void removeCharactersNextWord(int length);
-        public abstract void removeCharactersFromRegion(int length);
-        public abstract void addCharactersToRegion(int length);
-
-        
-
-        public enum kind
-        {
-            cursor,
-            browser,
-            customList,
-            showCompType,
-            temporary,
-            VarLink,
-            place,
-            createParameters,
-            VarLinkAndComp,
-            Import,
-            Parameter
-        }
+	abstract public class WordRegionBase : IDisposable
+	{
+		public int startWord;
+		public int endWord;
+		public WordRegionBase NextWord;
 
 
-        public kind type;
+		public abstract void addCharactersNextWord(int length);
+		public abstract void removeCharactersNextWord(int length);
+		public abstract void removeCharactersFromRegion(int length);
+		public abstract void addCharactersToRegion(int length);
 
 
-        public virtual WordRegionBase getLastWord()
-        {
-            LastWordRegion wr = new LastWordRegion();
 
-            wr.startWord = this.startWord;
-            wr.endWord = this.endWord;
-            wr.type = this.type;
-            return wr;
-        }
-
-
-        public virtual void Disable()
-        {
-
-        }
-
-        #region IDisposable Membri di
-
-        public void Dispose()
-        {
-            NextWord = null;
-        }
+		public enum kind
+		{
+			cursor,
+			browser,
+			customList,
+			showCompType,
+			temporary,
+			VarLink,
+			place,
+			createParameters,
+			VarLinkAndComp,
+			Import,
+			Parameter
+		}
 
 
-       
+		public kind type;
 
-        #endregion
-    }
+
+		public virtual WordRegionBase getLastWord()
+		{
+			LastWordRegion wr = new LastWordRegion();
+
+			wr.startWord = this.startWord;
+			wr.endWord = this.endWord;
+			wr.type = this.type;
+			return wr;
+		}
+
+
+		public virtual void Disable()
+		{
+
+		}
+
+		#region IDisposable Membri di
+
+		public void Dispose()
+		{
+			NextWord = null;
+		}
+
+
+
+
+		#endregion
+	}
 }

@@ -19,180 +19,181 @@ using System;
 namespace QuickGenerator.Words
 {
 
-     
-    /// <summary>
-    /// Represent a variabile. Modify it will change each varDuplicate associate with this
-    /// </summary>
-    class VarWordRegion : WordCustomList, IDisposable
-    {
-      
-        public string ValueVar;
-        public delegate void ChangeVarEventHandler(VarWordRegion vwr);
-        public event ChangeVarEventHandler ChangeVarWord;
-        private bool disactive;
-        
-        private VarDuplicateWordRegion lastVar;
-        private VarDuplicateWordRegion secondLast;
-        public VarDuplicateWordRegion  NextVarDuplicate;
-        public int newLength;
-        private int changeLength;
-        private VarDuplicateWordRegion varNotify;
 
-        public VarWordRegion()
-        {
-            
-        }
+	/// <summary>
+	/// Represent a variabile. Modify it will change each varDuplicate associate with this
+	/// </summary>
+	class VarWordRegion : WordCustomList, IDisposable
+	{
 
- 
-        public override void addCharactersToRegion(int length)
-        {
-            //endWord += length;
+		public string ValueVar;
+		public delegate void ChangeVarEventHandler(VarWordRegion vwr);
+		public event ChangeVarEventHandler ChangeVarWord;
+		private bool disactive;
 
-            //newLength = length;
-            //NextWord.addCharactersNextWord(length);
-            //newLength = 0;
-            endWord += length;
-            changeLength += length;
+		private VarDuplicateWordRegion lastVar;
+		private VarDuplicateWordRegion secondLast;
+		public VarDuplicateWordRegion NextVarDuplicate;
+		public int newLength;
+		private int changeLength;
+		private VarDuplicateWordRegion varNotify;
+
+		public VarWordRegion()
+		{
+
+		}
 
 
-            if (NextVarDuplicate == null)
-                NextWord.addCharactersNextWord(length);
-            else
-            ChangeVarWord(this);
-        }
+		public override void addCharactersToRegion(int length)
+		{
+			//endWord += length;
+
+			//newLength = length;
+			//NextWord.addCharactersNextWord(length);
+			//newLength = 0;
+			endWord += length;
+			changeLength += length;
 
 
+			if (NextVarDuplicate == null)
+				NextWord.addCharactersNextWord(length);
+			else
+				ChangeVarWord(this);
+		}
 
 
 
-        public void ChangePositionVarsLink()
-        {
-           // endWord += changeLength;
-
-            if (changeLength > 0)
-            {
-                newLength = changeLength;
-
-                NextWord.addCharactersNextWord(changeLength);
-            }
-            else
-            {
-                newLength = -changeLength;
-                NextWord.removeCharactersNextWord(newLength);
-            }
-            
-            changeLength = 0;
-            newLength = 0;
-        }
 
 
+		public void ChangePositionVarsLink()
+		{
+			// endWord += changeLength;
 
-        public override void removeCharactersFromRegion(int length)
-        {
+			if (changeLength > 0)
+			{
+				newLength = changeLength;
 
-            endWord -= length;
-            changeLength -= length;
+				NextWord.addCharactersNextWord(changeLength);
+			}
+			else
+			{
+				newLength = -changeLength;
+				NextWord.removeCharactersNextWord(newLength);
+			}
 
-            if (NextVarDuplicate == null)
-                NextWord.removeCharactersNextWord(length);
-            else
-            ChangeVarWord(this);
-
-        }
-
-       
-
-        public override void addCharactersNextWord(int length)
-        {
-            startWord += length;
-            endWord += length;
-
-        
-            NextWord.addCharactersNextWord(length);
-        }
-
-        public VarDuplicateWordRegion VarNotify
-        {
-            get { return varNotify; }
-            set {
-
-                if (varNotify != null && value != null) return;
-
-                varNotify = value;
-            }
-        }
+			changeLength = 0;
+			newLength = 0;
+		}
 
 
-        public override void removeCharactersNextWord(int length)
-        {
 
-            startWord -= length;
-            endWord -= length;
+		public override void removeCharactersFromRegion(int length)
+		{
 
-            NextWord.removeCharactersNextWord(length);
+			endWord -= length;
+			changeLength -= length;
 
-        }
+			if (NextVarDuplicate == null)
+				NextWord.removeCharactersNextWord(length);
+			else
+				ChangeVarWord(this);
 
-        public void InsertVarDuplicate(VarDuplicateWordRegion var)
-        {
-            var.rootWord = this;
-            if (NextVarDuplicate == null)
-            {
-                NextVarDuplicate = var;
-                lastVar = var;
-            }
-            else
-            {
-                secondLast = lastVar;
-                lastVar.NextVarDuplicate = var;
-                lastVar = var;
-                
-            }
+		}
 
 
-        }
 
-        public int ChangeLength
-        {
-            get { return changeLength; }
-        }
-
-        public void SetLastVar(VarDuplicateWordRegion lastWord)
-        {
-            lastWord.rootWord = this;
+		public override void addCharactersNextWord(int length)
+		{
+			startWord += length;
+			endWord += length;
 
 
-            if (secondLast != null)
-                secondLast.NextVarDuplicate = lastWord;
-            else
-            {
-                NextVarDuplicate = lastWord;
-                lastVar = lastWord;
-            }
-        }
+			NextWord.addCharactersNextWord(length);
+		}
+
+		public VarDuplicateWordRegion VarNotify
+		{
+			get { return varNotify; }
+			set
+			{
+
+				if (varNotify != null && value != null) return;
+
+				varNotify = value;
+			}
+		}
 
 
-        public override void Disable()
-        {
-            disactive = true;
-        }
+		public override void removeCharactersNextWord(int length)
+		{
+
+			startWord -= length;
+			endWord -= length;
+
+			NextWord.removeCharactersNextWord(length);
+
+		}
+
+		public void InsertVarDuplicate(VarDuplicateWordRegion var)
+		{
+			var.rootWord = this;
+			if (NextVarDuplicate == null)
+			{
+				NextVarDuplicate = var;
+				lastVar = var;
+			}
+			else
+			{
+				secondLast = lastVar;
+				lastVar.NextVarDuplicate = var;
+				lastVar = var;
+
+			}
 
 
-        public bool Disactive
-        {
-            get { return disactive; }
-        }
-        #region IDisposable Membri di
+		}
 
-        void IDisposable.Dispose()
-        {
-            lastVar = null;
-            NextWord = null;
-            NextVarDuplicate = null;
-            VarNotify = null;
-            
-        }
+		public int ChangeLength
+		{
+			get { return changeLength; }
+		}
 
-        #endregion
-    }
+		public void SetLastVar(VarDuplicateWordRegion lastWord)
+		{
+			lastWord.rootWord = this;
+
+
+			if (secondLast != null)
+				secondLast.NextVarDuplicate = lastWord;
+			else
+			{
+				NextVarDuplicate = lastWord;
+				lastVar = lastWord;
+			}
+		}
+
+
+		public override void Disable()
+		{
+			disactive = true;
+		}
+
+
+		public bool Disactive
+		{
+			get { return disactive; }
+		}
+		#region IDisposable Membri di
+
+		void IDisposable.Dispose()
+		{
+			lastVar = null;
+			NextWord = null;
+			NextVarDuplicate = null;
+			VarNotify = null;
+
+		}
+
+		#endregion
+	}
 }

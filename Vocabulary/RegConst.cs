@@ -2,48 +2,48 @@
 
 namespace QuickGenerator.Vocabulary
 {
-    class RegConst : IMatch
-    {
-        InfoArguments info;
-      
-        private string test;
+	class RegConst : IMatch
+	{
+		InfoArguments info;
 
-        public RegConst(string text, WordTypes regplace, bool hasNeedSpace)
-        {
-            info = new InfoArguments();
-            info.regplace = regplace;
-            info.hasNeedSpace = hasNeedSpace;
-            test = text;
-        }
+		private string test;
 
-
-
-
-        #region IMatch Membri di
-
-        public InfoArguments Match(string input, int startPos)
-        {
-            if (test == input)
-            {
-                return info;
-            }
-
-            return null;
-        }
+		public RegConst(string text, WordTypes regplace, bool hasNeedSpace)
+		{
+			info = new InfoArguments();
+			info.regplace = regplace;
+			info.hasNeedSpace = hasNeedSpace;
+			test = text;
+		}
 
 
 
 
-        public InfoArguments IsMatch(string input, int startPos)
-        {
-            if (test == input)
-            {
-                return info;
-            }
+		#region IMatch Membri di
 
-            return null;
-        }
+		public InfoArguments Match(string input, int startPos)
+		{
+			if (test == input)
+			{
+				return info;
+			}
 
-        #endregion
-    }
+			return null;
+		}
+
+
+
+
+		public InfoArguments IsMatch(string input, int startPos)
+		{
+			if (test == input)
+			{
+				return info;
+			}
+
+			return null;
+		}
+
+		#endregion
+	}
 }

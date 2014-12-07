@@ -1,21 +1,21 @@
 ﻿
 namespace QuickGenerator.Words
 {
-    class WordCustomList : WordRegion
-    {
-        public string indList;
+	class WordCustomList : WordRegion
+	{
+		public string indList;
 
 
-        public override WordRegionBase getLastWord()
-        {
+		public override WordRegionBase getLastWord()
+		{
 
-            LastWordCustomList wb = new LastWordCustomList();
-            wb.indList = this.indList;
-            wb.type = this.type;
-            wb.endWord = this.endWord;
-            wb.startWord = this.startWord;
+			LastWordCustomList wb = new LastWordCustomList();
+			wb.indList = this.indList;
+			wb.type = this.type;
+			wb.endWord = this.endWord;
+			wb.startWord = this.startWord;
 
-            return wb;
-        }
-    }
+			return wb;
+		}
+	}
 }

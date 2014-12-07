@@ -5,77 +5,77 @@ using System.IO;
 
 namespace QuickGenerator
 {
-    class ManagerResources:IDisposable
-    {
-        public static Bitmap MethodImage;
-        public static Bitmap ImportImage;
-        public static Bitmap ClipBoardImage;
-        public static Bitmap EmptyBitmap;
-        public static Bitmap AbbreviationBitmap;
-        public static Bitmap GoToAbbreviationBitmap;
-        public static Bitmap ClassImage;
+	class ManagerResources : IDisposable
+	{
+		public static Bitmap MethodImage;
+		public static Bitmap ImportImage;
+		public static Bitmap ClipBoardImage;
+		public static Bitmap EmptyBitmap;
+		public static Bitmap AbbreviationBitmap;
+		public static Bitmap GoToAbbreviationBitmap;
+		public static Bitmap ClassImage;
 
-        public  ManagerResources()
-        {
+		public ManagerResources()
+		{
 
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            // QuickGenerator 
-            Stream st = assembly.GetManifestResourceStream("QuickGenerator.Resources.Method.png");
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			// QuickGenerator 
+			Stream st = assembly.GetManifestResourceStream("QuickGenerator.Resources.Method.png");
 
-            MethodImage = new Bitmap(st);
+			MethodImage = new Bitmap(st);
 
-            st = assembly.GetManifestResourceStream("QuickGenerator.Resources.Package.png");
+			st = assembly.GetManifestResourceStream("QuickGenerator.Resources.Package.png");
 
-            ImportImage = new Bitmap(st);
+			ImportImage = new Bitmap(st);
 
-            st = assembly.GetManifestResourceStream("QuickGenerator.Resources.clipboard-icon.png");
+			st = assembly.GetManifestResourceStream("QuickGenerator.Resources.clipboard-icon.png");
 
-            ClipBoardImage = new Bitmap(st);
-
-
-            st = assembly.GetManifestResourceStream("QuickGenerator.Resources.Character-Map-icon.png");
-
-            AbbreviationBitmap = new Bitmap(st);
+			ClipBoardImage = new Bitmap(st);
 
 
-            st = assembly.GetManifestResourceStream("QuickGenerator.Resources.goto_arrow.png");
+			st = assembly.GetManifestResourceStream("QuickGenerator.Resources.Character-Map-icon.png");
 
-            GoToAbbreviationBitmap = new Bitmap(st);
-
-
-            EmptyBitmap = new Bitmap(1, 1);
+			AbbreviationBitmap = new Bitmap(st);
 
 
-            st = assembly.GetManifestResourceStream("QuickGenerator.Resources.Class.png");
+			st = assembly.GetManifestResourceStream("QuickGenerator.Resources.goto_arrow.png");
 
-            ClassImage = new Bitmap(st);
-
-
-        }
+			GoToAbbreviationBitmap = new Bitmap(st);
 
 
+			EmptyBitmap = new Bitmap(1, 1);
 
-        #region IDisposable 
 
-        public void Dispose()
-        {
-            MethodImage.Dispose();
-            MethodImage = null;
-            ImportImage.Dispose();
-            ImportImage = null;
-            ClipBoardImage.Dispose();
-            ClipBoardImage = null;
-            EmptyBitmap.Dispose();
-            EmptyBitmap = null;
-            AbbreviationBitmap.Dispose();
-            AbbreviationBitmap = null;
+			st = assembly.GetManifestResourceStream("QuickGenerator.Resources.Class.png");
 
-            GoToAbbreviationBitmap.Dispose();
-            GoToAbbreviationBitmap = null;
-            ClassImage.Dispose();
-            ClassImage = null;
-        }
+			ClassImage = new Bitmap(st);
 
-        #endregion
-    }
+
+		}
+
+
+
+		#region IDisposable
+
+		public void Dispose()
+		{
+			MethodImage.Dispose();
+			MethodImage = null;
+			ImportImage.Dispose();
+			ImportImage = null;
+			ClipBoardImage.Dispose();
+			ClipBoardImage = null;
+			EmptyBitmap.Dispose();
+			EmptyBitmap = null;
+			AbbreviationBitmap.Dispose();
+			AbbreviationBitmap = null;
+
+			GoToAbbreviationBitmap.Dispose();
+			GoToAbbreviationBitmap = null;
+			ClassImage.Dispose();
+			ClassImage = null;
+		}
+
+		#endregion
+	}
 }

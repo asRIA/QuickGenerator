@@ -13,131 +13,131 @@ using QuickGenerator.Abbreviation;
 
 namespace QuickGenerator.Double
 {
-    class ControlShortCutAutoClose: IPressKey, IDisposable
-    {
-        QuickGenerator.Settings settings;
-        AutoClose autoClose;
-        private bool enabled;
-        private Abbreviations abbreviations;
+	class ControlShortCutAutoClose : IPressKey, IDisposable
+	{
+		QuickGenerator.Settings settings;
+		AutoClose autoClose;
+		private bool enabled;
+		private Abbreviations abbreviations;
 
-        public ControlShortCutAutoClose(QuickGenerator.Settings settings, Abbreviations abbreviations)
-        {
-            this.settings = settings;
-            this.abbreviations = abbreviations;
-        }
-
-
-        #region IPressKey Membri di
-
-        public void EventKey(PluginCore.KeyEvent k)
-        {
-           
-                
-                if (enabled)
-                {
-                    
-                    Disable();
-                    if (settings.ShowStateChange)
-                    {
-                        System.Windows.Forms.MessageBox.Show("AutoClose Disable");
-                    }
-                }
-                else
-                {
-                    EnabledAutoCloseAndListenOpenDocuments();
-                    if (settings.ShowStateChange)
-                    {
-                        System.Windows.Forms.MessageBox.Show("AutoClose Enable");
-                    }
-                }
-          
-        }
-
-        #endregion
-
-        public void Enable()
-        {
-            if (autoClose != null) return;
-            autoClose = new AutoClose();
-            if (settings.CloseFunctionAndNew)
-                autoClose.EnableFunctionAndNewClose();
-
-            enabled = true;
-
-            if (settings.CreateParameters)
-            autoClose.abbreviations = this.abbreviations;
-
-        }
-
-        public void Disable()
-        {
-            if (autoClose == null) return;
-            autoClose.Dispose();
-            autoClose = null;
-            enabled = false;
-
-        }
-
-        public void EnableCreateParameters(Abbreviation.Abbreviations abr)
-        {
-            if (autoClose == null) return;
-            if (settings.CreateParameters)
-            {
-                autoClose.abbreviations = abr;
-            }
-           
-        }
-
-        public void DisableCreateParameters()
-        {
-            if (autoClose == null) return;
-            autoClose.abbreviations = null;
-        }
-
-        public void EnableCloseFunction()
-        {
-            if (autoClose == null) return;
-            autoClose.EnableFunctionAndNewClose();
-        }
-
-        public void DisableCloseFunction()
-        {
-            if (autoClose == null) return;
-            autoClose.disableFunctionAndNewClose();
-        }
-        // Enable DoubleChar and add Listener to Open documents
-        public void EnabledAutoCloseAndListenOpenDocuments()
-        {
-            if (autoClose != null) return;
-            autoClose = new AutoClose();
-
-            autoClose.InsertAllDocument();
-
-            if (settings.CloseFunctionAndNew)
-                autoClose.EnableFunctionAndNewClose();
-
-            if(settings.CreateParameters)
-            autoClose.abbreviations = abbreviations;
-            
-
-            enabled = true;
-        }
+		public ControlShortCutAutoClose(QuickGenerator.Settings settings, Abbreviations abbreviations)
+		{
+			this.settings = settings;
+			this.abbreviations = abbreviations;
+		}
 
 
-        #region IDisposable Membri di
+		#region IPressKey Membri di
 
-        public void Dispose()
-        {
-            if (autoClose != null)
-            {
-                Disable();
-            }
+		public void EventKey(PluginCore.KeyEvent k)
+		{
 
-            settings = null;
-            enabled = false;
-            abbreviations = null;
-        }
 
-        #endregion
-    }
+			if (enabled)
+			{
+
+				Disable();
+				if (settings.ShowStateChange)
+				{
+					System.Windows.Forms.MessageBox.Show("AutoClose Disable");
+				}
+			}
+			else
+			{
+				EnabledAutoCloseAndListenOpenDocuments();
+				if (settings.ShowStateChange)
+				{
+					System.Windows.Forms.MessageBox.Show("AutoClose Enable");
+				}
+			}
+
+		}
+
+		#endregion
+
+		public void Enable()
+		{
+			if (autoClose != null) return;
+			autoClose = new AutoClose();
+			if (settings.CloseFunctionAndNew)
+				autoClose.EnableFunctionAndNewClose();
+
+			enabled = true;
+
+			if (settings.CreateParameters)
+				autoClose.abbreviations = this.abbreviations;
+
+		}
+
+		public void Disable()
+		{
+			if (autoClose == null) return;
+			autoClose.Dispose();
+			autoClose = null;
+			enabled = false;
+
+		}
+
+		public void EnableCreateParameters(Abbreviation.Abbreviations abr)
+		{
+			if (autoClose == null) return;
+			if (settings.CreateParameters)
+			{
+				autoClose.abbreviations = abr;
+			}
+
+		}
+
+		public void DisableCreateParameters()
+		{
+			if (autoClose == null) return;
+			autoClose.abbreviations = null;
+		}
+
+		public void EnableCloseFunction()
+		{
+			if (autoClose == null) return;
+			autoClose.EnableFunctionAndNewClose();
+		}
+
+		public void DisableCloseFunction()
+		{
+			if (autoClose == null) return;
+			autoClose.disableFunctionAndNewClose();
+		}
+		// Enable DoubleChar and add Listener to Open documents
+		public void EnabledAutoCloseAndListenOpenDocuments()
+		{
+			if (autoClose != null) return;
+			autoClose = new AutoClose();
+
+			autoClose.InsertAllDocument();
+
+			if (settings.CloseFunctionAndNew)
+				autoClose.EnableFunctionAndNewClose();
+
+			if (settings.CreateParameters)
+				autoClose.abbreviations = abbreviations;
+
+
+			enabled = true;
+		}
+
+
+		#region IDisposable Membri di
+
+		public void Dispose()
+		{
+			if (autoClose != null)
+			{
+				Disable();
+			}
+
+			settings = null;
+			enabled = false;
+			abbreviations = null;
+		}
+
+		#endregion
+	}
 }

@@ -3,47 +3,44 @@
 namespace QuickGenerator.Words
 {
 
-    /// <summary>
-    /// Word for when type key ";"
-    /// </summary>
-    class WordReformat : WordRegionBase
-    {
+	/// <summary>
+	/// Word for when type key ";"
+	/// </summary>
+	class WordReformat : WordRegionBase
+	{
 
-        public WordRegionBase word;
-      
-        public override void addCharactersNextWord(int length)
-        {
-            word.endWord +=length;
+		public WordRegionBase word;
 
-            if (word.NextWord != null)
-                word.NextWord.addCharactersNextWord(length);
-        }
+		public override void addCharactersNextWord(int length)
+		{
+			word.endWord += length;
 
-        public override void removeCharactersNextWord(int length)
-        {
-            throw new NotImplementedException();
-        }
+			if (word.NextWord != null)
+				word.NextWord.addCharactersNextWord(length);
+		}
 
-        public void shiftWord(int length)
-        {
+		public override void removeCharactersNextWord(int length)
+		{
+			throw new NotImplementedException();
+		}
 
-            word.addCharactersNextWord(length);
-        }
+		public void shiftWord(int length)
+		{
+
+			word.addCharactersNextWord(length);
+		}
 
 
+		public override void removeCharactersFromRegion(int length)
+		{
+			throw new NotImplementedException();
+		}
 
-        
+		public override void addCharactersToRegion(int length)
+		{
+			throw new NotImplementedException();
+		}
+	}
 
-        public override void removeCharactersFromRegion(int length)
-        {
-            throw new NotImplementedException();
-        }
 
-        public override void addCharactersToRegion(int length)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    
 }

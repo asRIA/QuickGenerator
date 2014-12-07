@@ -95,574 +95,574 @@ using QuickGenerator.Command;
 
 namespace QuickGenerator
 {
-    public class PluginMain : IPlugin
-    {
-        //String
-        private String pluginName = "QuickGenerator";
-        private String pluginGuid = "21D1087C-998D-4466-A25C-8E6EA42F6F32";
-        private String pluginHelp = "http://www.youtube.com/user/Alan271078";
-        private String pluginDesc = "Add functionality for create code quickly";
-        private String pluginAuth = "Alan Lucchese, update: trzeci";
-        private int pluginApi = 1;
-        private String settingFilename;
-        internal  Settings settingsQuickGenerator;
-        internal static CustomCompletionScintillaControl custCompletion;
-       
-        
-        private Dictionary<Keys, IPressKey> dictNotifyPressKey;
-        private ManagerSettings managerSettings;
-        ItemShowCreateClass showCreateClass;
-        ToolStripMenuItem menuCompletition;
-        ToolStripMenuItem _EnvelopMenu;
-        IPressKey key;
-        ManagerResources managerResource;
-      
-
-        private Vocabulary.VocabularyArgument vca;
-
-        #region Required Properties
-
-        /// <summary>
-        /// Name of the plugin
-        /// </summary> 
-        public String Name
-        {
-            get { return this.pluginName; }
-        }
-
-        /// <summary>
-        /// GUID of the plugin
-        /// </summary>
-        public String Guid
-        {
-            get { return this.pluginGuid; }
-        }
-
-        /// <summary>
-        /// Author of the plugin
-        /// </summary> 
-        public String Author
-        {
-            get { return this.pluginAuth; }
-        }
-
-        /// <summary>
-        /// Description of the plugin
-        /// </summary> 
-        public String Description
-        {
-            get { return this.pluginDesc; }
-        }
-
-        /// <summary>
-        /// Web address for help
-        /// </summary> 
-        public String Help
-        {
-            get { return this.pluginHelp; }
-        }
-
-        /// <summary>
-        /// Web address for help
-        /// </summary> 
-        public int Api
-        {
-            get { return this.pluginApi; }
-        }
-        /// <summary>
-        /// Object that contains the settings
-        /// </summary>
-        [Browsable(false)]
-        public Object Settings
-        {
-            get { return this.settingsQuickGenerator; }
-        }
-
-        #endregion
-
-        #region Required Methods
-
-        /// <summary>
-        /// Initializes the plugin
-        /// </summary>
-        public void Initialize()
-        {
-
-            managerResource = new ManagerResources();
-            
-            this.InitBasics();
-            this.LoadSettings();
-         
-            this.CreateMenu();
-            dictNotifyPressKey = new Dictionary<Keys, IPressKey>();
-            managerSettings = new ManagerSettings(settingsQuickGenerator, dictNotifyPressKey, this, vca);
-            managerSettings.ShortcutMenuChangeHandler += new ShortcutMenuChange(managerSettings_ShortcutMenuChangeHandler);
+	public class PluginMain : IPlugin
+	{
+		//String
+		private String pluginName = "QuickGenerator";
+		private String pluginGuid = "21D1087C-998D-4466-A25C-8E6EA42F6F32";
+		private String pluginHelp = "http://www.youtube.com/user/Alan271078";
+		private String pluginDesc = "Add functionality for create code quickly";
+		private String pluginAuth = "Alan Lucchese, update: trzeci";
+		private int pluginApi = 1;
+		private String settingFilename;
+		internal Settings settingsQuickGenerator;
+		internal static CustomCompletionScintillaControl custCompletion;
+
+
+		private Dictionary<Keys, IPressKey> dictNotifyPressKey;
+		private ManagerSettings managerSettings;
+		ItemShowCreateClass showCreateClass;
+		ToolStripMenuItem menuCompletition;
+		ToolStripMenuItem _EnvelopMenu;
+		IPressKey key;
+		ManagerResources managerResource;
+
+
+		private Vocabulary.VocabularyArgument vca;
+
+		#region Required Properties
+
+		/// <summary>
+		/// Name of the plugin
+		/// </summary> 
+		public String Name
+		{
+			get { return this.pluginName; }
+		}
+
+		/// <summary>
+		/// GUID of the plugin
+		/// </summary>
+		public String Guid
+		{
+			get { return this.pluginGuid; }
+		}
+
+		/// <summary>
+		/// Author of the plugin
+		/// </summary> 
+		public String Author
+		{
+			get { return this.pluginAuth; }
+		}
+
+		/// <summary>
+		/// Description of the plugin
+		/// </summary> 
+		public String Description
+		{
+			get { return this.pluginDesc; }
+		}
+
+		/// <summary>
+		/// Web address for help
+		/// </summary> 
+		public String Help
+		{
+			get { return this.pluginHelp; }
+		}
+
+		/// <summary>
+		/// Web address for help
+		/// </summary> 
+		public int Api
+		{
+			get { return this.pluginApi; }
+		}
+		/// <summary>
+		/// Object that contains the settings
+		/// </summary>
+		[Browsable(false)]
+		public Object Settings
+		{
+			get { return this.settingsQuickGenerator; }
+		}
 
-            custCompletion = new CustomCompletionScintillaControl();
-            custCompletion.OnSelectItem += new CustomCompletionScintillaControl.ItemSelectedEventHandler(custCompletion_OnSelectItem);
-            
-          }
+		#endregion
 
-        void custCompletion_OnSelectItem(ICommandInterface cmd)
-        {
-            cmd.Execute();
-        }
+		#region Required Methods
 
-            void managerSettings_ShortcutMenuChangeHandler()
-            {
-                showCreateClass.ShortcutKeys = settingsQuickGenerator.CreateClassShortCut;
-                menuCompletition.ShortcutKeys = settingsQuickGenerator.CreateClassFromNameShortCut;
-            }
+		/// <summary>
+		/// Initializes the plugin
+		/// </summary>
+		public void Initialize()
+		{
 
-     
+			managerResource = new ManagerResources();
 
+			this.InitBasics();
+			this.LoadSettings();
 
+			this.CreateMenu();
+			dictNotifyPressKey = new Dictionary<Keys, IPressKey>();
+			managerSettings = new ManagerSettings(settingsQuickGenerator, dictNotifyPressKey, this, vca);
+			managerSettings.ShortcutMenuChangeHandler += new ShortcutMenuChange(managerSettings_ShortcutMenuChangeHandler);
 
+			custCompletion = new CustomCompletionScintillaControl();
+			custCompletion.OnSelectItem += new CustomCompletionScintillaControl.ItemSelectedEventHandler(custCompletion_OnSelectItem);
 
-       
+		}
 
-        /// <summary>
-        /// Disposes the plugin
-        /// </summary>
-        public void Dispose()
-        {
-             this.SaveSettings();
+		void custCompletion_OnSelectItem(ICommandInterface cmd)
+		{
+			cmd.Execute();
+		}
 
-             if (custCompletion != null)
-             {
-                 custCompletion.Dispose();
-                 custCompletion = null;
-             }
+		void managerSettings_ShortcutMenuChangeHandler()
+		{
+			showCreateClass.ShortcutKeys = settingsQuickGenerator.CreateClassShortCut;
+			menuCompletition.ShortcutKeys = settingsQuickGenerator.CreateClassFromNameShortCut;
+		}
 
 
-             managerSettings.Dispose();
-             managerResource.Dispose();
-
-             if (_EnvelopMenu != null)
-             {
-                 _EnvelopMenu.Dispose();
-                 _EnvelopMenu = null;
-             }
 
-        }
 
-        /// <summary>
-        /// Handles the incoming events
-        /// </summary>
-        public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
-        {
-          
 
-            switch (e.Type)
-            {
-                case EventType.Keys:
-                    KeyEvent k = e as KeyEvent;
-       
-                   
-                    if (dictNotifyPressKey.TryGetValue(k.Value, out key))
-                    {
-                        key.EventKey(k);
-                        e.Handled = true;
-                    }
 
-                    break;
 
-            }
-        }
 
+		/// <summary>
+		/// Disposes the plugin
+		/// </summary>
+		public void Dispose()
+		{
+			this.SaveSettings();
 
+			if (custCompletion != null)
+			{
+				custCompletion.Dispose();
+				custCompletion = null;
+			}
 
-        #endregion
 
-        #region Custom Methods
+			managerSettings.Dispose();
+			managerResource.Dispose();
 
-     
+			if (_EnvelopMenu != null)
+			{
+				_EnvelopMenu.Dispose();
+				_EnvelopMenu = null;
+			}
 
-  
+		}
 
-        /// <summary>
-        /// Initializes important variables
-        /// </summary>
-        public void InitBasics()
-        {
-            String dataPath = Path.Combine(PathHelper.DataDir, pluginName);
-            if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
-            this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
-          //  this.pluginImage = PluginBase.MainForm.FindImage("100");
-        }
+		/// <summary>
+		/// Handles the incoming events
+		/// </summary>
+		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
+		{
 
-        /// <summary>
-        /// Creates a menu item for the plugin and adds a ignored key
-        /// </summary>
-        public void CreateMenu()
-        {
 
-            ToolStripMenuItem generator = new ToolStripMenuItem("Generator");
-        
+			switch (e.Type)
+			{
+				case EventType.Keys:
+					KeyEvent k = e as KeyEvent;
 
-           showCreateClass = new ItemShowCreateClass(this);
-          // showCreateClass.ShortcutKeys = Keys.Alt | Keys.N;
-           showCreateClass.ShortcutKeys = settingsQuickGenerator.CreateClassShortCut;
-        
-            menuCompletition = new ToolStripMenuItem("Completition");
-           menuCompletition.Visible = false;
-          // menuCompletition.ShortcutKeys = Keys.ControlKey | Keys.Alt | Keys.J;
-           menuCompletition.ShortcutKeys = settingsQuickGenerator.CreateClassFromNameShortCut;
-           menuCompletition.Click += new EventHandler(menuCompletiton);
 
-           generator.DropDownItems.Add(showCreateClass);
-           generator.DropDownItems.Add(menuCompletition);
+					if (dictNotifyPressKey.TryGetValue(k.Value, out key))
+					{
+						key.EventKey(k);
+						e.Handled = true;
+					}
 
-           ASContext.MainForm.MenuStrip.Items.Add(generator);
+					break;
 
-          PluginBase.MainForm.EditorMenu.Opening += new CancelEventHandler(EditorMenu_Opening);
-        
-      
-        }
+			}
+		}
 
-        void menuCompletiton(object sender, EventArgs e)
-        {
-            string currentWord = ASContext.CurSciControl.GetWordFromPosition(ASContext.CurSciControl.CurrentPos);
 
-            if (currentWord == null || currentWord.Length==0)
-                return;
-           // Project project = (Project)PluginBase.CurrentProject;
-            List<ICompletionListItem> lcomp = new List<ICompletionListItem>();
 
-            ICompletionListItem cmd = null;
+		#endregion
 
-            if (ASContext.Context.CurrentModel.haXe)
-            {
-                cmd = new QuickGenerator.Command.CreateClassCmdHaxe(currentWord, this, ManagerResources.ClassImage);
-            }
-            else
-            {
-                cmd = new QuickGenerator.Command.CreateClassCmdAS3(currentWord, this, ManagerResources.ClassImage);
-            }
+		#region Custom Methods
 
-            lcomp.Add(cmd);
 
-            custCompletion.Show(lcomp, true);
-        }
 
 
-        ToolStripMenuItem addAbbrevationMenu;
 
-        void EditorMenu_Opening(object sender, CancelEventArgs e)
-        {
+		/// <summary>
+		/// Initializes important variables
+		/// </summary>
+		public void InitBasics()
+		{
+			String dataPath = Path.Combine(PathHelper.DataDir, pluginName);
+			if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
+			this.settingFilename = Path.Combine(dataPath, "Settings.fdb");
+			//  this.pluginImage = PluginBase.MainForm.FindImage("100");
+		}
 
-            bool hasTextToInsert =(ASContext.CurSciControl.SelText.Trim().Length != 0);
-            
-            ContextMenuStrip contextMenu = (ContextMenuStrip)sender;
-   
-            if (_EnvelopMenu == null)
-            {
-                _EnvelopMenu = new ToolStripMenuItem("Wrap");
+		/// <summary>
+		/// Creates a menu item for the plugin and adds a ignored key
+		/// </summary>
+		public void CreateMenu()
+		{
 
-                 _EnvelopMenu.DropDownItems.Add("in Function", ManagerResources.MethodImage, new EventHandler(this.EnvelopInFunction));
-                 _EnvelopMenu.DropDownItems.Add("in if()", ManagerResources.ImportImage , new EventHandler(this.EnvelopInIF));
+			ToolStripMenuItem generator = new ToolStripMenuItem("Generator");
 
-            }
 
-            if (addAbbrevationMenu == null)
-            {
-                addAbbrevationMenu = new ToolStripMenuItem("Add to Abbreviation", null, new EventHandler(addAbrevation));
-            }
-
-
-
-            if (hasTextToInsert)
-            {
-                if (!contextMenu.Items.Contains(_EnvelopMenu))
-                    contextMenu.Items.Add(_EnvelopMenu);
-
-                if (!contextMenu.Items.Contains(addAbbrevationMenu))
-                    contextMenu.Items.Add(addAbbrevationMenu);
-            }
-            else
-            {
-                if (contextMenu.Items.Contains(_EnvelopMenu))
-                    contextMenu.Items.Remove(_EnvelopMenu);
-
-                if (contextMenu.Items.Contains(addAbbrevationMenu))
-                    contextMenu.Items.Remove(addAbbrevationMenu);
-            }
-
-        }
-        private void addAbrevation(object sender, EventArgs e)
-        {
-            QuickSettings.settingAbbrevation sta = new QuickGenerator.QuickSettings.settingAbbrevation();
-            sta.AbbrevationDictionary = settingsQuickGenerator.abbrevationDictList;
-            sta.CustomList = settingsQuickGenerator.customList;
-            sta.ColorArgument = settingsQuickGenerator.ColorArgument;
-
-            AbbrevationCompletionForm frm = new AbbrevationCompletionForm(sta, vca);
-            ScintillaNet.ScintillaControl sci = ASContext.CurSciControl;
-
-            string text = ASContext.CurSciControl.SelText;
-            int pos = sci.SelectionStart;
-            int end = sci.SelectionEnd;
-
-
-
-
-            int initLine = sci.LineFromPosition(pos);
-            int endLine = sci.LineFromPosition(end);
-
-           
-            int indent = sci.GetLineIndentation(initLine);
-
-            if (initLine != endLine)
-            {
-                while(initLine<endLine)
-                {
-                    initLine++;
-                    int newIdent = sci.GetLineIndentation(initLine);
-                    if (newIdent < indent)
-                        indent = newIdent;
-                }
-            }
-
-            string tabString = new string('\t',indent / sci.Indent);
-
-            StringBuilder sb = new StringBuilder(text.Length);
-
-
-            if (tabString.Length!=0)
-            {
-                string[] str = text.Split('\n');
-
-
-                //sb.Append(str[0]);
-                //sb.Append("\n");
-                int ind = -1;
-                int lenght = tabString.Length;
-                for (int i = 0; i < str.Length; i++)
-                {
-                    ind = str[i].IndexOf(tabString, 0);
-                    if (ind != -1)
-                    {
-                        //sb.Append(str[i].Replace(tabString, ""));
-                       // string sg = str[i].Substring(ind + lenght);
-                        sb.Append(str[i].Substring(ind + lenght));
-                    }
-                    else
-                    {
-                   
-                        //sb.Append(str[i].TrimStart('\t'));
-                        sb.Append(str[i]);
-                    }
-                    sb.Append("\n");
-                }
-
-
-                sb.Remove(sb.Length - 1, 1);
-            }
-            else
-                sb.Append(text);
-
-           
-            frm.getAbbrevationExternal(sb.ToString());
-            frm.ShowDialog();
-            sta = frm.getSettingAbbrevation();
-            settingsQuickGenerator.abbrevationDictList = sta.AbbrevationDictionary;
-            settingsQuickGenerator.customList = sta.CustomList;
-            settingsQuickGenerator.ColorArgument = sta.ColorArgument;
-        }
-
-        /// <summary>
-        /// Invoked when the user selects the "Envelop" command
-        /// </summary>
-        private void EnvelopInFunction(object sender, EventArgs e)
-        {
-            Wrap.EnvelopInFunction();
-        }
-
-        /// <summary>
-        /// Invoked when the user selects the "Envelop" command
-        /// </summary>
-        private void EnvelopInIF(object sender, EventArgs e)
-        {
-            Wrap.EnvelopInIF();
-        }
-
-
-
-        /// <summary>
-        /// The form is closed.The new settings now begin save.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        internal void SaveSettingsFrmCreateClass(object sender, FormClosedEventArgs e)
-        {
-            CreateClassfrm frm = (CreateClassfrm) sender;
-            
-            if (frm.OptionChange)
-            {
-                settingsQuickGenerator.createClassSettings = frm.settings;
-                SaveSettings();
-            }
-         
-            
-        }
-       
-
-
-        /// <summary>
-        /// Loads the plugin settings
-        /// </summary>
-        public  void LoadSettings()
-        {
-            this.settingsQuickGenerator = new Settings();
-            
-            if (!File.Exists(this.settingFilename))
-            {
-                
-                this.SaveSettings();
-            }
-            else
-            {
-               
-                Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingsQuickGenerator);
-                this.settingsQuickGenerator = (Settings)obj;
-            }
-
-            if (settingsQuickGenerator.abbrevationDictList == null)
-            {
-                settingsQuickGenerator.abbrevationDictList = new Dictionary<string, Dictionary<string, AbbrevationSnippet>>();
-                settingsQuickGenerator.abbrevationDictList.Add(".as", new Dictionary<string, AbbrevationSnippet>());
-                settingsQuickGenerator.abbrevationDictList.Add(".other", new Dictionary<string, AbbrevationSnippet>());
-                AbbrevationSnippet abr = new AbbrevationSnippet("for(var ${var=\"i\" list=\"ls3\"}:int=0; ${var=\"i\"} < ${\"length\"}; ${var=\"i\"}++)\r\n{\r\n\t${SafeZone}\r\n}");
-                abr.Arguments = new WordTypes[5];
-                abr.Arguments[0] = WordTypes.var;
-                abr.Arguments[1] = WordTypes.var;
-                abr.Arguments[2] = WordTypes.place;
-                abr.Arguments[3] = WordTypes.var;
-                abr.Arguments[4] = WordTypes.SafeZone;
-
-                settingsQuickGenerator.abbrevationDictList[".as"].Add("fori", abr);
-
-                abr = new AbbrevationSnippet("${list=\"ls1\"} function ${var=\"name\"}(${\"\"}):void\r\n{\r\n\t${SafeZone}\r\n}");
-                abr.Arguments = new WordTypes[4];
-                abr.Arguments[0] = WordTypes.list;
-                abr.Arguments[1] = WordTypes.var;
-                abr.Arguments[2] = WordTypes.place;
-                abr.Arguments[3] = WordTypes.SafeZone;
-
-                settingsQuickGenerator.abbrevationDictList[".as"].Add("fnc", abr);
-
-                abr = new AbbrevationSnippet("var ${var=\"request\"}:${Import=\"URLRequest\"} = new URLRequest(${browser});\r\nvar ${var=\"loader\"}:Loader = new ${Import=\"Loader\"}();\r\n${var=\"loader\"}.contentLoaderInfo.addEventListener(${Import=\"Event\"}.COMPLETE, ${EventHandler=\"completeHandler\"});\r\n${var=\"loader\"}.load(${var=\"request\"});");
-                abr.Arguments = new WordTypes[10];
-                abr.Arguments[0] = WordTypes.var;
-                abr.Arguments[1] = WordTypes.import;
-                abr.Arguments[2] = WordTypes.browser;
-                abr.Arguments[3] = WordTypes.var;
-                abr.Arguments[4] = WordTypes.import;
-                abr.Arguments[5] = WordTypes.var;
-                abr.Arguments[6] = WordTypes.import;
-                abr.Arguments[7] = WordTypes.EventHandler;
-                abr.Arguments[8] = WordTypes.var;
-                abr.Arguments[9] = WordTypes.var;
-                abr.HasImport = true;
-                abr.HasEventHandler = true;
-                settingsQuickGenerator.abbrevationDictList[".as"].Add("load", abr);
-                //dictAbbrevations[".as"].Add("vr", new AbbrevationSnippet("${list=0}var ${cursor}:${showCompType};"));
-
-
-
-                abr = new AbbrevationSnippet("${list=\"ls2\"} ${\"a\"}:${cmp=\"Number\"} = ${\"0\"};");
-                abr.Arguments = new WordTypes[4];
-                abr.Arguments[0] = WordTypes.list;
-                abr.Arguments[1] = WordTypes.place;
-                abr.Arguments[2] = WordTypes.cmp;
-                abr.Arguments[3] = WordTypes.place;
-
-                settingsQuickGenerator.abbrevationDictList[".as"].Add("vr", abr);
-
-                abr = new AbbrevationSnippet("var ${\"mc\"}:${var=\"MovieClip\" showCmp} = new ${var=\"MovieClip\"}(${createParameters});");
-                abr.Arguments = new WordTypes[4];
-                abr.Arguments[0] = WordTypes.place;
-                abr.Arguments[1] = WordTypes.var;
-                abr.Arguments[2] = WordTypes.var;
-                abr.Arguments[3] = WordTypes.createParameters;
-
-                settingsQuickGenerator.abbrevationDictList[".as"].Add("nw", abr);
-
-
-                abr = new AbbrevationSnippet("${var=\"name\"}(${createParameters});${AfterCurrentMember=\"fnc\"}");
-                abr.Arguments = new WordTypes[3];
-                abr.Arguments[0] = WordTypes.var;
-                abr.Arguments[1] = WordTypes.createParameters;
-                abr.Arguments[2] = WordTypes.AfterCurrentMember;
-                abr.HasAfterCurrentMember = true;
-                settingsQuickGenerator.abbrevationDictList[".as"].Add("out", abr);
-
-                if (settingsQuickGenerator.Abbreviations.CustomList == null)
-                {
-                    settingsQuickGenerator.Abbreviations.CustomList = new Dictionary<string, List<string>>();
-                    List<string> ls = new List<string>();
-                    ls.Add("public");
-                    ls.Add("private");
-                    ls.Add("protected");
-                    settingsQuickGenerator.Abbreviations.CustomList.Add("ls1", ls);
-                    ls = new List<string>();
-                    ls.Add("var");
-                    ls.Add("public var");
-                    ls.Add("private var");
-                    settingsQuickGenerator.Abbreviations.CustomList.Add("ls2", ls);
-
-                    ls = new List<string>();
-                    ls.Add("x");
-                    ls.Add("y");
-                    ls.Add("z");
-                    settingsQuickGenerator.Abbreviations.CustomList.Add("ls3", ls);
-                }
-             
-
-            }
-
-        }
-
-        /// <summary>
-        /// Saves the plugin settings
-        /// </summary>
-        public void SaveSettings()
-        {
-     
-            System.Reflection.EventInfo[] evtInfo = settingsQuickGenerator.GetType().GetEvents();
-            
-             Dictionary<string , object>evt = new Dictionary<string,object>();
-            for (int i = 0; i < evtInfo.GetLength(0) ; i++)
-            {
-                string fldName = evtInfo[i].Name;
-                System.Reflection.FieldInfo fldinfo = settingsQuickGenerator.GetType().GetField(
-                    fldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-
-                    evt.Add(fldName,
-                    fldinfo.GetValue(settingsQuickGenerator) );
-
-                    fldinfo.SetValue(settingsQuickGenerator, null);
-
-    
-            }
-
-            ObjectSerializer.Serialize(this.settingFilename, this.settingsQuickGenerator);
-
-
-            for (int  i = 0; i < evtInfo.GetLength(0); i++)
-            {
-                string fldName = evtInfo[i].Name;
-                System.Reflection.FieldInfo fldinfo = settingsQuickGenerator.GetType().GetField(
-                   fldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                fldinfo.SetValue(settingsQuickGenerator, evt[fldName]);
-            }
-        }
-
-
-   
-        #endregion
-
-
-    }
+			showCreateClass = new ItemShowCreateClass(this);
+			// showCreateClass.ShortcutKeys = Keys.Alt | Keys.N;
+			showCreateClass.ShortcutKeys = settingsQuickGenerator.CreateClassShortCut;
+
+			menuCompletition = new ToolStripMenuItem("Completition");
+			menuCompletition.Visible = false;
+			// menuCompletition.ShortcutKeys = Keys.ControlKey | Keys.Alt | Keys.J;
+			menuCompletition.ShortcutKeys = settingsQuickGenerator.CreateClassFromNameShortCut;
+			menuCompletition.Click += new EventHandler(menuCompletiton);
+
+			generator.DropDownItems.Add(showCreateClass);
+			generator.DropDownItems.Add(menuCompletition);
+
+			ASContext.MainForm.MenuStrip.Items.Add(generator);
+
+			PluginBase.MainForm.EditorMenu.Opening += new CancelEventHandler(EditorMenu_Opening);
+
+
+		}
+
+		void menuCompletiton(object sender, EventArgs e)
+		{
+			string currentWord = ASContext.CurSciControl.GetWordFromPosition(ASContext.CurSciControl.CurrentPos);
+
+			if (currentWord == null || currentWord.Length == 0)
+				return;
+			// Project project = (Project)PluginBase.CurrentProject;
+			List<ICompletionListItem> lcomp = new List<ICompletionListItem>();
+
+			ICompletionListItem cmd = null;
+
+			if (ASContext.Context.CurrentModel.haXe)
+			{
+				cmd = new QuickGenerator.Command.CreateClassCmdHaxe(currentWord, this, ManagerResources.ClassImage);
+			}
+			else
+			{
+				cmd = new QuickGenerator.Command.CreateClassCmdAS3(currentWord, this, ManagerResources.ClassImage);
+			}
+
+			lcomp.Add(cmd);
+
+			custCompletion.Show(lcomp, true);
+		}
+
+
+		ToolStripMenuItem addAbbrevationMenu;
+
+		void EditorMenu_Opening(object sender, CancelEventArgs e)
+		{
+
+			bool hasTextToInsert = (ASContext.CurSciControl.SelText.Trim().Length != 0);
+
+			ContextMenuStrip contextMenu = (ContextMenuStrip)sender;
+
+			if (_EnvelopMenu == null)
+			{
+				_EnvelopMenu = new ToolStripMenuItem("Wrap");
+
+				_EnvelopMenu.DropDownItems.Add("in Function", ManagerResources.MethodImage, new EventHandler(this.EnvelopInFunction));
+				_EnvelopMenu.DropDownItems.Add("in if()", ManagerResources.ImportImage, new EventHandler(this.EnvelopInIF));
+
+			}
+
+			if (addAbbrevationMenu == null)
+			{
+				addAbbrevationMenu = new ToolStripMenuItem("Add to Abbreviation", null, new EventHandler(addAbrevation));
+			}
+
+
+
+			if (hasTextToInsert)
+			{
+				if (!contextMenu.Items.Contains(_EnvelopMenu))
+					contextMenu.Items.Add(_EnvelopMenu);
+
+				if (!contextMenu.Items.Contains(addAbbrevationMenu))
+					contextMenu.Items.Add(addAbbrevationMenu);
+			}
+			else
+			{
+				if (contextMenu.Items.Contains(_EnvelopMenu))
+					contextMenu.Items.Remove(_EnvelopMenu);
+
+				if (contextMenu.Items.Contains(addAbbrevationMenu))
+					contextMenu.Items.Remove(addAbbrevationMenu);
+			}
+
+		}
+		private void addAbrevation(object sender, EventArgs e)
+		{
+			QuickSettings.settingAbbrevation sta = new QuickGenerator.QuickSettings.settingAbbrevation();
+			sta.AbbrevationDictionary = settingsQuickGenerator.abbrevationDictList;
+			sta.CustomList = settingsQuickGenerator.customList;
+			sta.ColorArgument = settingsQuickGenerator.ColorArgument;
+
+			AbbrevationCompletionForm frm = new AbbrevationCompletionForm(sta, vca);
+			ScintillaNet.ScintillaControl sci = ASContext.CurSciControl;
+
+			string text = ASContext.CurSciControl.SelText;
+			int pos = sci.SelectionStart;
+			int end = sci.SelectionEnd;
+
+
+
+
+			int initLine = sci.LineFromPosition(pos);
+			int endLine = sci.LineFromPosition(end);
+
+
+			int indent = sci.GetLineIndentation(initLine);
+
+			if (initLine != endLine)
+			{
+				while (initLine < endLine)
+				{
+					initLine++;
+					int newIdent = sci.GetLineIndentation(initLine);
+					if (newIdent < indent)
+						indent = newIdent;
+				}
+			}
+
+			string tabString = new string('\t', indent / sci.Indent);
+
+			StringBuilder sb = new StringBuilder(text.Length);
+
+
+			if (tabString.Length != 0)
+			{
+				string[] str = text.Split('\n');
+
+
+				//sb.Append(str[0]);
+				//sb.Append("\n");
+				int ind = -1;
+				int lenght = tabString.Length;
+				for (int i = 0; i < str.Length; i++)
+				{
+					ind = str[i].IndexOf(tabString, 0);
+					if (ind != -1)
+					{
+						//sb.Append(str[i].Replace(tabString, ""));
+						// string sg = str[i].Substring(ind + lenght);
+						sb.Append(str[i].Substring(ind + lenght));
+					}
+					else
+					{
+
+						//sb.Append(str[i].TrimStart('\t'));
+						sb.Append(str[i]);
+					}
+					sb.Append("\n");
+				}
+
+
+				sb.Remove(sb.Length - 1, 1);
+			}
+			else
+				sb.Append(text);
+
+
+			frm.getAbbrevationExternal(sb.ToString());
+			frm.ShowDialog();
+			sta = frm.getSettingAbbrevation();
+			settingsQuickGenerator.abbrevationDictList = sta.AbbrevationDictionary;
+			settingsQuickGenerator.customList = sta.CustomList;
+			settingsQuickGenerator.ColorArgument = sta.ColorArgument;
+		}
+
+		/// <summary>
+		/// Invoked when the user selects the "Envelop" command
+		/// </summary>
+		private void EnvelopInFunction(object sender, EventArgs e)
+		{
+			Wrap.EnvelopInFunction();
+		}
+
+		/// <summary>
+		/// Invoked when the user selects the "Envelop" command
+		/// </summary>
+		private void EnvelopInIF(object sender, EventArgs e)
+		{
+			Wrap.EnvelopInIF();
+		}
+
+
+
+		/// <summary>
+		/// The form is closed.The new settings now begin save.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		internal void SaveSettingsFrmCreateClass(object sender, FormClosedEventArgs e)
+		{
+			CreateClassfrm frm = (CreateClassfrm)sender;
+
+			if (frm.OptionChange)
+			{
+				settingsQuickGenerator.createClassSettings = frm.settings;
+				SaveSettings();
+			}
+
+
+		}
+
+
+
+		/// <summary>
+		/// Loads the plugin settings
+		/// </summary>
+		public void LoadSettings()
+		{
+			this.settingsQuickGenerator = new Settings();
+
+			if (!File.Exists(this.settingFilename))
+			{
+
+				this.SaveSettings();
+			}
+			else
+			{
+
+				Object obj = ObjectSerializer.Deserialize(this.settingFilename, this.settingsQuickGenerator);
+				this.settingsQuickGenerator = (Settings)obj;
+			}
+
+			if (settingsQuickGenerator.abbrevationDictList == null)
+			{
+				settingsQuickGenerator.abbrevationDictList = new Dictionary<string, Dictionary<string, AbbrevationSnippet>>();
+				settingsQuickGenerator.abbrevationDictList.Add(".as", new Dictionary<string, AbbrevationSnippet>());
+				settingsQuickGenerator.abbrevationDictList.Add(".other", new Dictionary<string, AbbrevationSnippet>());
+				AbbrevationSnippet abr = new AbbrevationSnippet("for(var ${var=\"i\" list=\"ls3\"}:int=0; ${var=\"i\"} < ${\"length\"}; ${var=\"i\"}++)\r\n{\r\n\t${SafeZone}\r\n}");
+				abr.Arguments = new WordTypes[5];
+				abr.Arguments[0] = WordTypes.var;
+				abr.Arguments[1] = WordTypes.var;
+				abr.Arguments[2] = WordTypes.place;
+				abr.Arguments[3] = WordTypes.var;
+				abr.Arguments[4] = WordTypes.SafeZone;
+
+				settingsQuickGenerator.abbrevationDictList[".as"].Add("fori", abr);
+
+				abr = new AbbrevationSnippet("${list=\"ls1\"} function ${var=\"name\"}(${\"\"}):void\r\n{\r\n\t${SafeZone}\r\n}");
+				abr.Arguments = new WordTypes[4];
+				abr.Arguments[0] = WordTypes.list;
+				abr.Arguments[1] = WordTypes.var;
+				abr.Arguments[2] = WordTypes.place;
+				abr.Arguments[3] = WordTypes.SafeZone;
+
+				settingsQuickGenerator.abbrevationDictList[".as"].Add("fnc", abr);
+
+				abr = new AbbrevationSnippet("var ${var=\"request\"}:${Import=\"URLRequest\"} = new URLRequest(${browser});\r\nvar ${var=\"loader\"}:Loader = new ${Import=\"Loader\"}();\r\n${var=\"loader\"}.contentLoaderInfo.addEventListener(${Import=\"Event\"}.COMPLETE, ${EventHandler=\"completeHandler\"});\r\n${var=\"loader\"}.load(${var=\"request\"});");
+				abr.Arguments = new WordTypes[10];
+				abr.Arguments[0] = WordTypes.var;
+				abr.Arguments[1] = WordTypes.import;
+				abr.Arguments[2] = WordTypes.browser;
+				abr.Arguments[3] = WordTypes.var;
+				abr.Arguments[4] = WordTypes.import;
+				abr.Arguments[5] = WordTypes.var;
+				abr.Arguments[6] = WordTypes.import;
+				abr.Arguments[7] = WordTypes.EventHandler;
+				abr.Arguments[8] = WordTypes.var;
+				abr.Arguments[9] = WordTypes.var;
+				abr.HasImport = true;
+				abr.HasEventHandler = true;
+				settingsQuickGenerator.abbrevationDictList[".as"].Add("load", abr);
+				//dictAbbrevations[".as"].Add("vr", new AbbrevationSnippet("${list=0}var ${cursor}:${showCompType};"));
+
+
+
+				abr = new AbbrevationSnippet("${list=\"ls2\"} ${\"a\"}:${cmp=\"Number\"} = ${\"0\"};");
+				abr.Arguments = new WordTypes[4];
+				abr.Arguments[0] = WordTypes.list;
+				abr.Arguments[1] = WordTypes.place;
+				abr.Arguments[2] = WordTypes.cmp;
+				abr.Arguments[3] = WordTypes.place;
+
+				settingsQuickGenerator.abbrevationDictList[".as"].Add("vr", abr);
+
+				abr = new AbbrevationSnippet("var ${\"mc\"}:${var=\"MovieClip\" showCmp} = new ${var=\"MovieClip\"}(${createParameters});");
+				abr.Arguments = new WordTypes[4];
+				abr.Arguments[0] = WordTypes.place;
+				abr.Arguments[1] = WordTypes.var;
+				abr.Arguments[2] = WordTypes.var;
+				abr.Arguments[3] = WordTypes.createParameters;
+
+				settingsQuickGenerator.abbrevationDictList[".as"].Add("nw", abr);
+
+
+				abr = new AbbrevationSnippet("${var=\"name\"}(${createParameters});${AfterCurrentMember=\"fnc\"}");
+				abr.Arguments = new WordTypes[3];
+				abr.Arguments[0] = WordTypes.var;
+				abr.Arguments[1] = WordTypes.createParameters;
+				abr.Arguments[2] = WordTypes.AfterCurrentMember;
+				abr.HasAfterCurrentMember = true;
+				settingsQuickGenerator.abbrevationDictList[".as"].Add("out", abr);
+
+				if (settingsQuickGenerator.Abbreviations.CustomList == null)
+				{
+					settingsQuickGenerator.Abbreviations.CustomList = new Dictionary<string, List<string>>();
+					List<string> ls = new List<string>();
+					ls.Add("public");
+					ls.Add("private");
+					ls.Add("protected");
+					settingsQuickGenerator.Abbreviations.CustomList.Add("ls1", ls);
+					ls = new List<string>();
+					ls.Add("var");
+					ls.Add("public var");
+					ls.Add("private var");
+					settingsQuickGenerator.Abbreviations.CustomList.Add("ls2", ls);
+
+					ls = new List<string>();
+					ls.Add("x");
+					ls.Add("y");
+					ls.Add("z");
+					settingsQuickGenerator.Abbreviations.CustomList.Add("ls3", ls);
+				}
+
+
+			}
+
+		}
+
+		/// <summary>
+		/// Saves the plugin settings
+		/// </summary>
+		public void SaveSettings()
+		{
+
+			System.Reflection.EventInfo[] evtInfo = settingsQuickGenerator.GetType().GetEvents();
+
+			Dictionary<string, object> evt = new Dictionary<string, object>();
+			for (int i = 0; i < evtInfo.GetLength(0); i++)
+			{
+				string fldName = evtInfo[i].Name;
+				System.Reflection.FieldInfo fldinfo = settingsQuickGenerator.GetType().GetField(
+					fldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+				evt.Add(fldName,
+				fldinfo.GetValue(settingsQuickGenerator));
+
+				fldinfo.SetValue(settingsQuickGenerator, null);
+
+
+			}
+
+			ObjectSerializer.Serialize(this.settingFilename, this.settingsQuickGenerator);
+
+
+			for (int i = 0; i < evtInfo.GetLength(0); i++)
+			{
+				string fldName = evtInfo[i].Name;
+				System.Reflection.FieldInfo fldinfo = settingsQuickGenerator.GetType().GetField(
+				   fldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+				fldinfo.SetValue(settingsQuickGenerator, evt[fldName]);
+			}
+		}
+
+
+
+		#endregion
+
+
+	}
 
 }

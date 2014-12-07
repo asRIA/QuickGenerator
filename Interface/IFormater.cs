@@ -2,8 +2,8 @@
 
 namespace QuickGenerator.Reformatter
 {
-    interface IFormater
-    {
-         string ReformatString(string text);
-    }
+	interface IFormater
+	{
+		string ReformatString(string text);
+	}
 }
